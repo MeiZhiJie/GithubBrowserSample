@@ -46,10 +46,8 @@ public class RepoListAdapter extends DataBoundListAdapter<Repo, RepoItemBinding>
 
         binding.setShowFullName(showFullName);
         binding.getRoot().setOnClickListener((view) -> {
-            if (binding.getRepo() != null) {
-                if (repoClickCallback != null) {
-                    repoClickCallback.onClick(view);
-                }
+            if (binding.getRepo() != null && repoClickCallback != null) {
+                repoClickCallback.onClick(binding.getRepo());
             }
         });
         return binding;

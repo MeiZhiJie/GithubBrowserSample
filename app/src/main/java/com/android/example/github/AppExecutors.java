@@ -23,13 +23,15 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Global executor pools for the whole application.
- * <p>
+ *
  * Grouping tasks like this avoids the effects of task starvation (e.g. disk reads don't wait behind
  * webservice requests).
  */
+@Singleton
 public class AppExecutors {
 
     private final Executor mDiskIO;
@@ -38,11 +40,17 @@ public class AppExecutors {
 
     private final Executor mMainThread;
 
-    @Inject
-    public AppExecutors(Executor diskIO, Executor networkIO, Executor mainThread) {
+    private AppExecutors(Executor diskIO, Executor networkIO, Executor mainThread) {
         this.mDiskIO = diskIO;
         this.mNetworkIO = networkIO;
         this.mMainThread = mainThread;
+    }
+
+    @Inject
+    public AppExecutors() {
+        this(Executors.newSingleThreadExecutor(),
+                Executors.newFixedThreadPool(3),
+                new MainThreadExecutor());
     }
 
     public Executor diskIO() {

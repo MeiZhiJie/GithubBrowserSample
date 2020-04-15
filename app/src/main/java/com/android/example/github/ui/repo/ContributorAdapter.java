@@ -42,10 +42,8 @@ public class ContributorAdapter extends DataBoundListAdapter<Contributor, Contri
                         dataBindingComponent
                 );
         binding.getRoot().setOnClickListener(view -> {
-            if (binding.getContributor() != null) {
-                if (callback != null) {
-                    callback.callback(view, binding.imageView);
-                }
+            if (binding.getContributor() != null && callback != null) {
+                    callback.callback(binding.getContributor(), binding.imageView);
             }
         });
         return binding;

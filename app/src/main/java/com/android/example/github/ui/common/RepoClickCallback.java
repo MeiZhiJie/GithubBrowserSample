@@ -1,8 +1,8 @@
 package com.android.example.github.ui.common;
 
-import android.view.View;
+import com.android.example.github.vo.Repo;
 
 
 public interface RepoClickCallback {
-    void onClick(View view);
+    void onClick(Repo repo);
 }

@@ -91,8 +91,9 @@ public class RepoViewModel extends ViewModel {
         @Override
         public boolean equals(Object obj) {
             RepoId repoId = (RepoId) obj;
-            return repoId.getOwner().equals(this.owner)
-                    && repoId.getName().equals(this.name);
+            return repoId != null
+                    && this.owner.equals(repoId.getOwner())
+                    && this.name.equals(repoId.getName());
         }
     }
 }

@@ -60,10 +60,17 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
         result.addSource(dbSource, newData -> setValue(Resource.loading(newData)));
         result.addSource(apiResponse, response -> {
             result.removeSource(apiResponse);
+            result.removeSource(dbSource);
             if (response instanceof ApiSuccessResponse) {
-                appExecutors.diskIO().execute(() -> saveCallResult(
-                        processResponse((ApiSuccessResponse<RequestType>) response))
-                );
+                appExecutors.diskIO().execute(() -> {
+                    saveCallResult(processResponse((ApiSuccessResponse<RequestType>) response));
+                    appExecutors.mainThread().execute(() ->
+                            // we specially request a new live data,
+                            // otherwise we will get immediately last cached value,
+                            // which may not be updated with latest results received from network.
+                            result.addSource(loadFromDb(), newData -> setValue(Resource.success(newData)))
+                    );
+                });
             } else if (response instanceof ApiEmptyResponse) {
                 appExecutors.mainThread().execute(() -> {
                     // reload from disk whatever we had

@@ -16,30 +16,33 @@
 
 package com.android.example.github;
 
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
-import androidx.fragment.app.Fragment;
+import android.app.Activity;
+import android.app.Application;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements HasSupportFragmentInjector {
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+import timber.log.Timber;
+
+import com.android.example.github.di.AppInjector;
+
+public class GithubApp extends Application implements HasActivityInjector {
+
     @Inject
-    public DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
+    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+    public void onCreate() {
+        super.onCreate();
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
+        AppInjector.init(this);
     }
 
     @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
+    public DispatchingAndroidInjector<Activity> activityInjector() {
         return dispatchingAndroidInjector;
     }
 }
