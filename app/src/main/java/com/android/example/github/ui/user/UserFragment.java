@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.android.example.github.ui.user;
 
 import android.graphics.drawable.Drawable;
@@ -20,12 +36,11 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
 
 import com.android.example.github.AppExecutors;
+import com.android.example.github.R;
 import com.android.example.github.binding.FragmentDataBindingComponent;
 import com.android.example.github.databinding.UserFragmentBinding;
 import com.android.example.github.di.Injectable;
 import com.android.example.github.ui.common.RepoListAdapter;
-import com.android.example.github.R;
-import com.android.example.github.ui.common.RetryCallback;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
@@ -33,7 +48,6 @@ import com.bumptech.glide.request.target.Target;
 
 import javax.inject.Inject;
 
-//@OpenForTesting
 public class UserFragment extends Fragment implements Injectable {
     @Inject
     public ViewModelProvider.Factory viewModelFactory;
@@ -60,12 +74,7 @@ public class UserFragment extends Fragment implements Injectable {
                 false,
                 dataBindingComponent
         );
-        binding.setRetryCallback(new RetryCallback() {
-            @Override
-            public void retry() {
-                userViewModel.retry();
-            }
-        });
+        binding.setRetryCallback(() -> userViewModel.retry());
 
         Transition sharedElementEnterTransition = TransitionInflater.from(getContext()).inflateTransition(R.transition.move);
 

@@ -107,6 +107,43 @@ public class Repo {
         public String getUrl() {
             return url;
         }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (!(obj instanceof Owner)) {
+                return false;
+            }
+
+            Owner owner = (Owner) obj;
+            return owner != null
+                    && login.equals(owner.getLogin())
+                    && url.equals(owner.getUrl());
+
+        }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Repo)) {
+            return false;
+        }
+
+        Repo repo = (Repo) obj;
+        return repo != null
+                && id.equals(repo.getId())
+                && name.equals(repo.getName())
+                && ((fullName == null && repo.getFullName() == null)
+                || (fullName != null && fullName.equals(repo.getFullName())))
+                && ((description == null && repo.getDescription() == null)
+                || (description != null && description.equals(repo.getDescription())))
+                && owner.equals(repo.getOwner())
+                && ((stars == null && repo.getStars() == null)
+                ||(stars != null && stars.equals(repo.getStars())));
+    }
 }

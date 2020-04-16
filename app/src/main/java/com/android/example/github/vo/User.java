@@ -79,4 +79,28 @@ public class User {
     public String getBlog() {
         return blog;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof User)) {
+            return false;
+        }
+
+        User user = (User) obj;
+        return user != null
+                && login.equals(user.getLogin())
+                && ((avatarUrl == null && user.getAvatarUrl() == null)
+                || (avatarUrl != null && avatarUrl.equals(user.getAvatarUrl())))
+                && ((name == null && user.getName() == null)
+                || (name != null && name.equals(user.getName())))
+                && ((company == null && user.getCompany() == null)
+                || (company != null && company.equals(user.getCompany())))
+                && ((reposUrl == null && user.getReposUrl() == null)
+                || (reposUrl != null && reposUrl.equals(user.getReposUrl())))
+                && ((blog == null && user.getBlog() == null)
+                || (blog != null && blog.equals(user.getBlog())));
+    }
 }

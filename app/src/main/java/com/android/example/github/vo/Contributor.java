@@ -84,4 +84,24 @@ public class Contributor {
     public void setRepoOwner(String repoOwner) {
         this.repoOwner = repoOwner;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Contributor)) {
+            return false;
+        }
+
+        Contributor contributor = (Contributor) obj;
+        return contributor != null
+                && login.equals(contributor.getLogin())
+                && ((contributions == null && contributor.getContributions() == null)
+                || (contributions != null && contributions.equals(contributor.getContributions())))
+                && ((avatarUrl == null && contributor.getAvatarUrl() == null)
+                || (avatarUrl != null && avatarUrl.equals(contributor.getAvatarUrl())))
+                && repoName.equals(contributor.getRepoName())
+                && repoOwner.equals(contributor.getRepoOwner());
+    }
 }

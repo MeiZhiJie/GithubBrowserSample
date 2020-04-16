@@ -60,4 +60,22 @@ public class RepoSearchResult {
     public Integer getNext() {
         return next;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof RepoSearchResult)) {
+            return false;
+        }
+
+        RepoSearchResult searchResult = (RepoSearchResult) obj;
+        return searchResult != null
+                && query.equals(searchResult.getQuery())
+                && repoIds.equals(searchResult.getRepoIds())
+                && totalCount.equals(searchResult.getTotalCount())
+                && ((next == null && searchResult.getNext() == null)
+                || (next != null && next.equals(searchResult.getNext())));
+    }
 }

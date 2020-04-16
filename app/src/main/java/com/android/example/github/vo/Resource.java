@@ -58,4 +58,20 @@ public class Resource<T> {
     public static <T> Resource<T> loading(@Nullable T data) {
         return new Resource(Status.LOADING, data,null);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Resource)) {
+            return false;
+        }
+
+        Resource res = (Resource) obj;
+        return res != null
+                && status.equals(res.getStatus())
+                && ((data == null && res.getData() == null) || (data != null && data.equals(res.getData())))
+                && ((message == null && res.getMessage() == null) || (message != null && message.equals(res.getMessage())));
+    }
 }
