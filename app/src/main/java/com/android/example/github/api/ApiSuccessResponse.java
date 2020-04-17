@@ -33,12 +33,6 @@ public class ApiSuccessResponse<T> extends ApiResponse<T> {
     private T body;
     private Map<String, String> links;
 
-    public ApiSuccessResponse(T body, Map<String, String> links) {
-        super();
-        this.body = body;
-        this.links = links;
-    }
-
     public ApiSuccessResponse(T body, @Nullable String linkHeader) {
         super();
         this.body = body;
@@ -51,10 +45,6 @@ public class ApiSuccessResponse<T> extends ApiResponse<T> {
 
     public T getBody() {
         return body;
-    }
-
-    public Map<String, String> getLinks() {
-        return links;
     }
 
     @Nullable

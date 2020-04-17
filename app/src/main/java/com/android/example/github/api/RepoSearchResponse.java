@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class RepoSearchResponse {
     @SerializedName("total_count")
-    private Integer total = 0;
+    private Integer total;
 
     @SerializedName("items")
     private List<Repo> items;

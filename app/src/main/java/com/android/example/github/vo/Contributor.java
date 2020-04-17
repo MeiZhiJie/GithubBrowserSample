@@ -43,13 +43,13 @@ public class Contributor {
     private String avatarUrl;
     // does not show up in the response but set in post processing.
     @NonNull
-    private String repoName;
+    private String repoName = "";
     // does not show up in the response but set in post processing.
     @NonNull
-    private String repoOwner;
+    private String repoOwner = "";
 
     public Contributor(
-            String login,
+            @NonNull String login,
             Integer contributions,
             @Nullable String avatarUrl) {
         this.login = login;
@@ -57,6 +57,7 @@ public class Contributor {
         this.avatarUrl = avatarUrl;
     }
 
+    @NonNull
     public String getLogin() {
         return login;
     }
@@ -69,19 +70,21 @@ public class Contributor {
         return avatarUrl;
     }
 
+    @NonNull
     public String getRepoName() {
         return repoName;
     }
 
-    public void setRepoName(String repoName) {
+    public void setRepoName(@NonNull String repoName) {
         this.repoName = repoName;
     }
 
+    @NonNull
     public String getRepoOwner() {
         return repoOwner;
     }
 
-    public void setRepoOwner(String repoOwner) {
+    public void setRepoOwner(@NonNull String repoOwner) {
         this.repoOwner = repoOwner;
     }
 

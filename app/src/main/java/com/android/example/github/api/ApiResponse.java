@@ -36,7 +36,7 @@ public class ApiResponse<T> {
                 if (linkHeader != null) {
                     return new ApiSuccessResponse(body, linkHeader.get("link"));
                 } else {
-                    return new ApiSuccessResponse(body, (String) null);
+                    return new ApiSuccessResponse(body, null);
                 }
             }
         } else {

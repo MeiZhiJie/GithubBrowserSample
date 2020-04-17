@@ -51,10 +51,10 @@ public class Repo {
     private Integer stars;
 
     public Repo(Integer id,
-                String name,
+                @NonNull String name,
                 String fullName,
                 @Nullable String description,
-                Owner owner,
+                @NonNull Owner owner,
                 Integer stars) {
         this.id = id;
         this.name = name;
@@ -68,6 +68,7 @@ public class Repo {
         return id;
     }
 
+    @NonNull
     public String getName() {
         return name;
     }
@@ -80,6 +81,7 @@ public class Repo {
         return description;
     }
 
+    @NonNull
     public Owner getOwner() {
         return owner;
     }
@@ -95,11 +97,12 @@ public class Repo {
         @SerializedName("url")
         private String url;
 
-        public Owner(String login, String url) {
+        public Owner(@NonNull String login, @Nullable String url) {
             this.login = login;
             this.url = url;
         }
 
+        @NonNull
         public String getLogin() {
             return login;
         }
@@ -120,8 +123,8 @@ public class Repo {
             Owner owner = (Owner) obj;
             return owner != null
                     && login.equals(owner.getLogin())
-                    && url.equals(owner.getUrl());
-
+                    && ((url == null && owner.getUrl() == null)
+                    || (url != null && url.equals(owner.getUrl())));
         }
     }
 

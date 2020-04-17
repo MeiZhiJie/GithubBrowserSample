@@ -35,7 +35,7 @@ public class RepoSearchResult {
     private Integer totalCount;
     private Integer next;
 
-    public RepoSearchResult(String query,
+    public RepoSearchResult(@NonNull String query,
                             List<Integer> repoIds,
                             Integer totalCount,
                             @Nullable Integer next) {
@@ -45,6 +45,7 @@ public class RepoSearchResult {
         this.next = next;
     }
 
+    @NonNull
     public String getQuery() {
         return query;
     }

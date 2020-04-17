@@ -42,7 +42,7 @@ public class User {
     @SerializedName("blog")
     private String blog;
 
-    public User(String login,
+    public User(@NonNull String login,
                 @Nullable String avatarUrl,
                 @Nullable String name,
                 @Nullable String company,
@@ -56,6 +56,7 @@ public class User {
         this.blog = blog;
     }
 
+    @NonNull
     public String getLogin() {
         return login;
     }
