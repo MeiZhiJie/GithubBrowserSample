@@ -106,10 +106,11 @@ public class RepoFragment extends Fragment implements Injectable {
         adapter = new ContributorAdapter(dataBindingComponent,
                 appExecutors,
                 (contributor, imageView) -> {
-                    FragmentNavigator.Extras.Builder extras =
-                            new FragmentNavigator.Extras.Builder().addSharedElement(imageView, contributor.getLogin());
+                    FragmentNavigator.Extras extras =
+                            new FragmentNavigator.Extras.Builder().addSharedElement(imageView, contributor.getLogin()).build();
                     navController().navigate(
-                            RepoFragmentDirections.showUser(contributor.getLogin()));
+                            RepoFragmentDirections.showUser(contributor.getLogin())
+                                    .setAvatarUrl(contributor.getAvatarUrl()), extras);
                 }
         );
 
