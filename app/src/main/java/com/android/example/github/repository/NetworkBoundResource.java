@@ -46,7 +46,7 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
     @MainThread
     public NetworkBoundResource(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
-        init();
+//        init();
     }
 
     private void init() {
@@ -66,7 +66,6 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
     @MainThread
     private void setValue(Resource<ResultType> newValue) {
         if (result.getValue() == null || !result.getValue().equals(newValue)) {
-        //if (result.getValue() != newValue) {
             result.setValue(newValue);
         }
     }
@@ -104,6 +103,7 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
     protected void onFetchFailed() {}
 
     public LiveData<Resource<ResultType>> asLiveData() {
+        init();
         return result;
     }
 
